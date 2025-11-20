@@ -14,8 +14,7 @@ We are approaching the problem as a binary classification task: predicting wheth
 - **Vegas Odds:** Moneyline odds for both teams, which serve as a proxy for market sentiment and implied probability.
 
 **Methodology:**
-We utilized a time-based split, training on games before September 1st, 2025, and testing on the final month of the season. This simulates a realistic forecasting scenario. 
-*Note:* We imputed missing pitcher statistics with the league average (column mean) to avoid the bias of "zero-filling," which would otherwise treat unknown pitchers as having perfect stats (0.00 ERA).
+We utilized a time-based split, training on games before September 1st, 2025, and testing on the final month of the season. This simulates a realistic forecasting scenario. Pitchers will reset with a season total of 0 on all of their stats. Each game will aggregate new data to account for future games. For example, a pitcher that stats his first game will have 0 ERA, 0 K/BB etc., and then in his second game, his ERA and K/BB stats will change to reflect the results after game 1. This ensures that there will be no leakage or influence over future games that will affect our model as a result. 
 
 **Baseline Models:**
 1.  **Random Baseline:** A purely random control as a benchmark.
@@ -33,12 +32,10 @@ We evaluated performance using Accuracy and ROC-AUC scores. The Random Forest ou
 Our baseline has a decent amount of variety, from random guessing to complex non-linear modeling. The Random Forest (58.5% accuracy) outperforms the linear model because it captures conditional interactions (e.g., a high ERA matters less against a weak opponent) that Logistic Regression misses. However, even this strong baseline ignores offensive and bullpen performance, limiting its ceiling.
 
 **Potential Bias:**
-It is possible that both the linear and non-linear baselines over-rely on Vegas odds rather than finding independent signal. This could lead to the models simply copying the market, since it knows it to be efficient. Additionally the models could face temporal drift from September roster expansions.
+It is possible that both the linear and non-linear baselines over-rely on Vegas odds rather than finding independent signal. This could lead to the models simply copying the market, since it knows it to be efficient.
 
 **Future Directions:**
 To beat this strong baseline, we will continue to explore:
 1.  **Advanced Algorithms:** Implementing Gradient Boosting (XGBoost) to natively handle missing data and potentially squeeze out more performance than the Random Forest.
 2.  **Holistic Features:** Adding team offense (OPS) and bullpen ERA to look beyond just the starting pitcher.
 3.  **Betting ROI:** Evaluating success based on profitability against Vegas odds, not just raw accuracy.
-
-_written with help from Gemini_
