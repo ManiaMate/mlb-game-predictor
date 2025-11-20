@@ -1,8 +1,8 @@
-# MLB Game Predictor Writeup
+# MLB Game Predictor
 ### Tymon Vu (tvu38@calpoly.edu) and Ian Wong (iwong12@calpoly.edu)
 
 ## Data Collection & Preprocessing
-We began by aggregating game schedules and results with Vegas betting odds (`eda/eda.py`). To retrieve data on starting pitching, we built a scraper (`preproc/web-scrape.py`) utilizing Selenium to fetch  game logs from Baseball Savant.
+We began by aggregating game schedules and results with vegas betting odds (`eda/eda.py`). To retrieve data on starting pitching, we built a scraper (`preproc/web-scrape.py`) utilizing Selenium to fetch game logs from Baseball Savant.
 
 We then engineered features in `preproc/add-pitcher-stats.py`. For each game, we calculated the starting pitchers' season-to-date and recent (last 3 games) statistics, including ERA, FIP, WHIP, and K/9. We time-shifted these statistics to ensure the model only sees data available *before* the first pitch, preventing data leakage.
 
@@ -40,3 +40,5 @@ To beat this strong baseline, we will continue to explore:
 1.  **Advanced Algorithms:** Implementing Gradient Boosting (XGBoost) to natively handle missing data and potentially squeeze out more performance than the Random Forest.
 2.  **Holistic Features:** Adding team offense (OPS) and bullpen ERA to look beyond just the starting pitcher.
 3.  **Betting ROI:** Evaluating success based on profitability against Vegas odds, not just raw accuracy.
+
+_written with help from Gemini_
