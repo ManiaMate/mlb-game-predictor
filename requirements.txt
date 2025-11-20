@@ -1,0 +1,10 @@
+selenium
+pandas
+numpy
+unidecode
+scikit-learn
+matplotlib
+seaborn
+html5lib
+lxml
+requests
