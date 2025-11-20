@@ -40,7 +40,7 @@ feature_cols = [
     "Away_BB9_last3_before", "Away_HR9_last3_before", "Away_IP_last3_before",
 ]
 
-df = pd.read_csv("mlb-2025-with-starter-stats.csv")
+df = pd.read_csv("data/mlb-2025-with-starter-stats.csv")
 
 # Fix ml to be actual floats
 for col in ["Home ML", "Away ML"]:

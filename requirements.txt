@@ -8,3 +8,4 @@ seaborn
 html5lib
 lxml
 requests
+pybaseball
