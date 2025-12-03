@@ -28,7 +28,7 @@ We approach this problem as a binary classification task: predicting whether the
 
 Our dataset comprises 4,301 completed regular-season games from the 2025 MLB season, sourced from Shane McDonald's sports data repository. Each record includes game metadata (date, teams, final scores), starting pitchers, and betting odds (moneyline, run line, over/under).
 
-Starting pitcher game logs were scraped from Baseball Savant using Selenium, capturing per-start statistics including innings pitched (IP), earned runs (ER), strikeouts (SO), walks (BB), hits (H), and home runs (HR).
+Starting pitcher game logs were scraped from Baseball Savant using Selenium, capturing per-start statistics including innings pitched (IP), earned runs (ER), strikeouts (SO), walks (BB), hits (H), and home runs (HR). Specifically, we used the `selenium` package to widely scrape each individual stats per-game and ensuring that each new predicted game would only take in that pitcher's previous stats.
 
 ### 2.2 Feature Engineering
 
@@ -55,8 +55,7 @@ We employed a temporal split to simulate realistic forecasting:
 - **Training set:** Games before September 1, 2025
 - **Test set:** Games from September 1 onward (187 games)
 
-This design mirrors a deployment scenario where the model predicts late-season outcomes based on patterns learned from earlier games.
-
+This design mirrors a deployment scenario where the model predicts late-season outcomes based on patterns learned from earlier games. It also avoids any potential for temporal leakage and allows us to try and simulate which teams will peroform well in the test-set closing in on the regular season.
 
 ## 3. Methods
 
@@ -115,7 +114,7 @@ Starting pitchers control approximately 5-7 innings of a typical game, directly 
 
 We present these results with appropriate cautiousness. Sports prediction is inherently difficult—each game is an independent event, and MLB is notoriously streaky. Several factors constrain model performance:
 
-- **Near-random baseline:** At 57.8% accuracy, our best model remains closer to a coin flip than a reliable oracle. Even Vegas, with superior resources, hovers around 54%.
+- **Near-random baseline:** At 57.8% accuracy, our best model remains closer to a coin flip than a reliable source. Even Vegas, with superior resources, hovers around 54%.
 - **Feature scope:** We exclude team offense (OPS, wRC+), bullpen strength, and defensive metrics, which collectively influence roughly half of each game.
 - **Home team bias:** The model shows a tendency to favor home teams, likely due to the one-hot team encodings capturing historical home-field advantage.
 - **Pitcher sample size:** Early-season games have minimal historical data per pitcher, causing cold-start issues.
@@ -140,7 +139,6 @@ We demonstrate that machine learning models trained on time-shifted starting pit
 
 ---
 
-*Drafting assistance provided by Claude.*
+*Writing assistance provided by Claude.*
 
 *Code repository: https://github.com/ManiaMate/mlb-game-predictor*
-
